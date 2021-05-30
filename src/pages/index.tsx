@@ -1,11 +1,16 @@
 import { NextPage } from "next";
 import Link from "next/link";
+import Layout from "../components/Layout";
+import Card from "../components/atoms/Card";
+import Container from "../components/atoms/Container";
+import Pagination from "../components/atoms/Pagination";
+import Summary from "../components/atoms/Summary";
 import styles from "../styles/index.module.css"
 import { IPost } from "../models/posts";
 
 const Index: NextPage<any> = ({ posts }) => {
   return (
-    <>
+    <Layout>
       <h1 className={styles.title}>BLOG</h1>
       <div>
         {posts.map((post: IPost) => {
@@ -22,7 +27,7 @@ const Index: NextPage<any> = ({ posts }) => {
           );
         })}
       </div>
-    </>
+    </Layout>
   );
 };
 

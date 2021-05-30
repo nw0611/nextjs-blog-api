@@ -1,13 +1,16 @@
 import { NextPage, GetStaticPaths, GetStaticProps } from "next";
 import { IPost } from "../../models/posts";
+import Layout from "../../components/Layout";
 
 const Post: NextPage<IPost> = ({ title, content, createdAt }) => {
   return (
-    <section>
-      <h1>{title}</h1>
-      <p>{content}</p>
-      <p>{createdAt}</p>
-    </section>
+    <Layout>
+      <section>
+        <h1>{title}</h1>
+        <p>{content}</p>
+        <p>{createdAt}</p>
+      </section>
+    </Layout>
   );
 };
 
