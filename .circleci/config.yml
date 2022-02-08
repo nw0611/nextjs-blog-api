@@ -19,10 +19,6 @@ jobs:
       - store_artifacts:
           path: ./storybook-static
           destination: ~/storybook/
-          filters:
-            branches:
-              ignore: /(develop.*|main|)/
-
 
 orbs:
   node: circleci/node@4.1
@@ -30,7 +26,10 @@ workflows:
   version: 1
   default:
     jobs:
-      - build_storybook
+      - build_storybook:
+        filters:
+          branches:
+            ignore: /develop.*/
 # workflows:
 #   sample:
 #     jobs:
