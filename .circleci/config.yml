@@ -27,9 +27,9 @@ workflows:
   default:
     jobs:
       - build_storybook:
-        filters:
-          branches:
-            ignore: /develop.*/
+          filters:
+            branches:
+              ignore: /(develop.*|main)/
 # workflows:
 #   sample:
 #     jobs:
