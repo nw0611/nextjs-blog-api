@@ -1,35 +1,64 @@
 # This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-jobs:
+
+orbs:
+  node: circleci/node@4.1
+
+commands:
   build_storybook:
+    steps:
+      - run:
+          name: Installing node modules
+          command: npm install
+      - run:
+          name: build storybook
+          command: yarn build-storybook
+      - store_artifacts:
+          path: ./storybook-static
+  build_storybook_dev:
+    steps:
+      - run:
+          name: Installing node modules
+          command: npm install
+      - run:
+          name: build storybook
+          command: yarn build-storybook
+      - run:
+          name: copy build
+          command: cp ./storybook-static ./public/storybook/
+      - store_artifacts:
+          path: ./storybook-static
+
+jobs:
+  build_set:
     docker:
       - image: circleci/node:10.13
     working_directory: ~/repo
     steps:
       - checkout
-      - run:
-          name: Installing node modules
-          command: |
-            npm install
-      # storybookをビルドする
-      - run:
-          name: build storybook
-          command: yarn build-storybook
-      # Artifactsにアップロードする
-      - store_artifacts:
-          path: ./storybook-static
-          destination: ~/storybook/
+      - build_storybook
+  build_set_dev:
+    docker:
+      - image: circleci/node:10.13
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - build_storybook_dev
 
-orbs:
-  node: circleci/node@4.1
 workflows:
   version: 1
   default:
     jobs:
-      - build_storybook:
+      - build_set:
           filters:
             branches:
-              ignore: /(main|develop)/
+              ignore: /develop/
+  develop:
+    jobs:
+      - build_set_dev:
+          filters:
+            branches:
+              only: /develop/
 # workflows:
 #   sample:
 #     jobs:
