@@ -52,7 +52,7 @@ workflows:
       - build_set:
           filters:
             branches:
-              ignore: /develop/
+              ignore: /(develop|main)/
   develop:
     jobs:
       - build_set_dev:
