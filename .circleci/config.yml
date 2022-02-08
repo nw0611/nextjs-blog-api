@@ -29,7 +29,7 @@ workflows:
       - build_storybook:
           filters:
             branches:
-              ignore: /(develop.*|main)/
+              ignore: /(main|develop)/
 # workflows:
 #   sample:
 #     jobs:
