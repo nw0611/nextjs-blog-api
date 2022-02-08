@@ -20,6 +20,9 @@ jobs:
       - store_artifacts:
           path: ./storybook-static
           destination: ~/storybook
+          filters:
+            branches:
+              ignore: /(develop.*|main|)/
 
 orbs:
   node: circleci/node@4.1
