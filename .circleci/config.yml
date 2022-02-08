@@ -25,7 +25,7 @@ commands:
           command: yarn build-storybook && mkdir ./public/storybook
       - run:
           name: copy build
-          command: cp ./storybook-static/ ./public/storybook/
+          command: cp -r ./storybook-static/ ./public/storybook/
       - store_artifacts:
           path: ./storybook-static
 
