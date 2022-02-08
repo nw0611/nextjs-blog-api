@@ -22,10 +22,10 @@ commands:
           command: npm install
       - run:
           name: build storybook
-          command: yarn build-storybook
+          command: yarn build-storybook && mkdir ./public/storybook
       - run:
           name: copy build
-          command: cp ./storybook-static ./public/storybook/
+          command: cp ./storybook-static/ ./public/storybook/
       - store_artifacts:
           path: ./storybook-static
 
