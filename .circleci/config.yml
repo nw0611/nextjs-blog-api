@@ -10,25 +10,25 @@ jobs:
       - run:
           name: Installing node modules
           command: |
-            npm i
+            npm install
       # storybookをビルドする
       - run:
-          name: Generate Storybook
-          command: |
-            ./scripts/generateStorybookForPr.sh
+          name: build storybook
+          command: yarn build-storybook
       # Artifactsにアップロードする
       - store_artifacts:
           path: ./storybook-static
-          destination: ~/storybook
+          destination: ~/storybook/
           filters:
             branches:
               ignore: /(develop.*|main|)/
+
 
 orbs:
   node: circleci/node@4.1
 workflows:
   version: 1
-  test:
+  default:
     jobs:
       - build_storybook
 # workflows:
