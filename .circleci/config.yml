@@ -7,9 +7,14 @@ orbs:
 commands:
   build_storybook:
     steps:
+      - node/install-packages:
+        pkg-manager: yarn
       - run:
-          name: Installing node modules
-          command: npm install
+        name: Run YARN install
+        command: yarn install
+      # - run:
+      #     name: Installing node modules
+      #     command: npm install
       - run:
           name: build storybook
           command: yarn build-storybook
@@ -39,11 +44,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - node/install-packages:
-        pkg-manager: yarn
-      - run:
-        name: Run YARN install
-        command: yarn install
       - build_storybook
   build_set_dev:
     docker:
