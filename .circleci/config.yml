@@ -38,7 +38,8 @@ jobs:
       - checkout
       - node/install:
         - install-yarn: true
-        - node-version: '14.16.1'
+        - node-version: '16.13'
+        - run: node --version
       - build_storybook
   build_set_dev:
     docker:
