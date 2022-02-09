@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.1
+  node: circleci/node@5.0.0
 
 commands:
   build_storybook:
@@ -14,7 +14,7 @@ commands:
           name: build storybook
           command: yarn build-storybook
       - store_artifacts:
-          path: ./storybook-static/index.html
+          path: ./storybook-static
   build_storybook_dev:
     steps:
       - run:
@@ -36,6 +36,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - node/install:
+        - install-yarn: true
+        - node-version: '14.16.1'
       - build_storybook
   build_set_dev:
     docker:
