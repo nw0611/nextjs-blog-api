@@ -15,6 +15,7 @@ commands:
           command: yarn build-storybook
       - store_artifacts:
           path: ./storybook-static
+          destination: index.html
   build_storybook_dev:
     steps:
       - run:
