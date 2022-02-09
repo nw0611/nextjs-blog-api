@@ -7,8 +7,6 @@ orbs:
 commands:
   build_storybook:
     steps:
-      - node/install-packages:
-        pkg-manager: yarn
       - run:
         name: Run YARN install
         command: yarn install
