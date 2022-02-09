@@ -8,11 +8,8 @@ commands:
   build_storybook:
     steps:
       - run:
-        name: Run YARN install
-        command: yarn install
-      # - run:
-      #     name: Installing node modules
-      #     command: npm install
+          name: Installing node modules
+          command: npm install
       - run:
           name: build storybook
           command: yarn build-storybook
