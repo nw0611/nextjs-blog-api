@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.1
+  node: circleci/node@5.0.0
 
 commands:
   build_storybook:
@@ -31,6 +31,9 @@ commands:
 
 jobs:
   build_set:
+    executor:
+      name: node/default
+      tag: '16'
     docker:
       - image: circleci/node:10.13
     working_directory: ~/repo
@@ -46,7 +49,7 @@ jobs:
       - build_storybook_dev
 
 workflows:
-  version: 1
+  version: 2
   default:
     jobs:
       - build_set:
