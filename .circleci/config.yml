@@ -21,6 +21,9 @@ commands:
   build_storybook_dev:
     steps:
       - run:
+          name: check node version
+          command: node -v
+      - run:
           name: Installing node modules
           command: npm install
       - run:
