@@ -2,7 +2,12 @@
 name: 'Chromatic Deployment'
 
 # Event for the workflow
-on: push
+# 👇 Workflow event to trigger execution
+on:
+  push:
+    branches-ignore:
+      - "develop"
+      - "main"
 
 # List of jobs
 jobs:
@@ -12,7 +17,7 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v1
-      - run: npm install
+      - run: yarn install
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
