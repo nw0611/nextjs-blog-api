@@ -41,7 +41,7 @@ jobs:
       name: node/default
       tag: '16'
     docker:
-      - image: circleci/node:16.14.2
+      - image: circleci/node:10.13
     environment:
       TZ: "Asia/Tokyo"
     working_directory: ~/repo
@@ -50,7 +50,7 @@ jobs:
       - build_storybook
   build_set_dev:
     docker:
-      - image: circleci/node:16.14.2
+      - image: circleci/node:10.13
     environment:
       TZ: "Asia/Tokyo"
     working_directory: ~/repo
