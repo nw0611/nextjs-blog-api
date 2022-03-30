@@ -5,9 +5,12 @@ name: 'Chromatic Deployment'
 # 👇 Workflow event to trigger execution
 on:
   push:
-    branches-ignore:
-      - "develop"
-      - "main"
+    filters:
+      branches:
+        ignore: /(develop|main)/
+    # branches-ignore:
+    #   - "develop"
+    #   - "main"
 
 # List of jobs
 jobs:
