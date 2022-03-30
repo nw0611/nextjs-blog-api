@@ -2,11 +2,14 @@
 version: 2.1
 
 orbs:
-  node: circleci/node@4.1
+  node: circleci/node@5.0.0
 
 commands:
   build_storybook:
     steps:
+      - run:
+          name: check node version
+          command: node -v
       - run:
           name: Installing node modules
           command: npm install
@@ -17,6 +20,9 @@ commands:
           path: ./storybook-static
   build_storybook_dev:
     steps:
+      - run:
+          name: check node version
+          command: node -v
       - run:
           name: Installing node modules
           command: npm install
@@ -31,8 +37,13 @@ commands:
 
 jobs:
   build_set:
+    executor:
+      name: node/default
+      tag: '16'
     docker:
       - image: circleci/node:10.13
+    environment:
+      TZ: "Asia/Tokyo"
     working_directory: ~/repo
     steps:
       - checkout
@@ -40,13 +51,15 @@ jobs:
   build_set_dev:
     docker:
       - image: circleci/node:10.13
+    environment:
+      TZ: "Asia/Tokyo"
     working_directory: ~/repo
     steps:
       - checkout
       - build_storybook_dev
 
 workflows:
-  version: 1
+  version: 2
   default:
     jobs:
       - build_set:
