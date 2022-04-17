@@ -34,6 +34,16 @@ commands:
           command: cp -r ./storybook-static/ ./public/storybook/
       - store_artifacts:
           path: ./storybook-static
+  screenshot:
+    steps:
+      - run:
+          name: screenshot
+          command: yarn storycap
+  regression:
+    steps:
+      - run:
+          name: regression
+          command: yarn regression
 
 jobs:
   build_set:
@@ -48,6 +58,8 @@ jobs:
     steps:
       - checkout
       - build_storybook
+      - screenshot
+      - regression
   build_set_dev:
     docker:
       - image: circleci/node:10.13
