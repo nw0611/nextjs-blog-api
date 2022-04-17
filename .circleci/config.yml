@@ -59,7 +59,7 @@ commands:
           command: ls -la ~/.aws/
       - run:
           name: check root
-          command: cat ~/.aws/credentials
+          command: echo $AWS_ACCESS_KEY_ID
       - run:
           name: regression
           command: yarn regression
