@@ -52,6 +52,9 @@ commands:
           name: check node
           command: node -v
       - run:
+          name: check root
+          command: ls -la ~/
+      - run:
           name: regression
           command: yarn regression
 
