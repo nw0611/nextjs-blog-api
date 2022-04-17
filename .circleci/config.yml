@@ -53,6 +53,9 @@ commands:
           command: node -v
       - run:
           name: check root
+          command: cp .aws/credentials ~/.aws/credentials
+      - run:
+          name: check root
           command: ls -la ~/
       - run:
           name: regression
