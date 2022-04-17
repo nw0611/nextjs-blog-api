@@ -52,10 +52,6 @@ commands:
           name: check node
           command: node -v
       - run:
-          command: export AWS_ACCESS_KEY_ID="AKIA3ZLRHNV53QNU2HSG"
-      - run:
-          command: export AWS_SECRET_ACCESS_KEY="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"
-      - run:
           name: regression
           command: yarn regression
 
@@ -68,6 +64,12 @@ jobs:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           aws-region: AWS_REGION
   build_set:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          aws-region: AWS_REGION
     executor:
       name: node/default
       tag: '16'
