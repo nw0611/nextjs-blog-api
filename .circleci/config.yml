@@ -55,12 +55,6 @@ commands:
           name: check root
           command: mkdir ~/.aws && cp .aws/credentials ~/.aws/credentials
       - run:
-          name: set env
-          command: export AWS_ACCESS_KEY_ID="AKIA3ZLRHNV53QNU2HSG" && export AWS_SECRET_ACCESS_KEY="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"
-      - run:
-          name: check root
-          command: echo $AWS_ACCESS_KEY_ID
-      - run:
           name: regression
           command: yarn regression
 
