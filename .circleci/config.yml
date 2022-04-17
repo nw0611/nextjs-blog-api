@@ -42,6 +42,9 @@ commands:
   regression:
     steps:
       - run:
+          name: check node
+          command: node -v
+      - run:
           name: regression
           command: yarn regression
 
