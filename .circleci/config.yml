@@ -56,7 +56,10 @@ commands:
           command: mkdir ~/.aws && cp .aws/credentials ~/.aws/credentials
       - run:
           name: check root
-          command: ls -la ~/
+          command: ls -la ~/.aws/
+      - run:
+          name: check root
+          command: cat ~/.aws/credentials
       - run:
           name: regression
           command: yarn regression
