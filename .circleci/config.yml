@@ -39,7 +39,7 @@ commands:
     steps:
       - run:
           name: update apt-get upgrade
-          command: apt-get update
+          command: sudo apt-get upgrade
       - run:
           name: Install Headless Chrome dependencies
           command: |
