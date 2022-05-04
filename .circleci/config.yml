@@ -41,9 +41,6 @@ commands:
           name: install chrome
           command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
       - run:
-          name: yum install
-          command: yum -y install google-chrome*.rpm
-      - run:
           name: screenshot
           command: yarn storycap
   regression:
