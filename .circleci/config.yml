@@ -38,9 +38,6 @@ commands:
   screenshot:
     steps:
       - run:
-          name: install chrome
-          command: apt-get update && apt-get install -y chromium
-      - run:
           name: screenshot
           command: yarn storycap
   regression:
