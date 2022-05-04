@@ -38,6 +38,9 @@ commands:
   screenshot:
     steps:
       - run:
+          name: install chrome
+          command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && yum -y install google-chrome*.rpm
+      - run:
           name: screenshot
           command: yarn storycap
   regression:
