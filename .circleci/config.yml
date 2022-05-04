@@ -39,7 +39,7 @@ commands:
     steps:
       - run:
           name: screenshot
-          command: yarn storycap
+          command: yarn storycap2
   regression:
     steps:
       # - name: Configure AWS credentials
