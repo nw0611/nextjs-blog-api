@@ -54,7 +54,7 @@ commands:
             fonts-liberation libappindicator1 lsb-release xdg-utils wget
       - run:
           name: screenshot
-          command: yarn storycap2
+          command: ls -la  ~/ && yarn storycap2
   regression:
     steps:
       # - name: Configure AWS credentials
