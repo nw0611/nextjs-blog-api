@@ -39,7 +39,7 @@ commands:
     steps:
       - run:
           name: install chrome
-          command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+          command: apt-get update && apt-get install -y chromium
       - run:
           name: screenshot
           command: yarn storycap
