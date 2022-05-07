@@ -8,13 +8,17 @@
     "start": "next start",
     "storybook": "start-storybook -c .storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic --project-token=ecae181de592"
+    "chromatic": "npx chromatic --project-token=ecae181de592",
+    "storycap": "storycap --serverCmd 'start-storybook -c .storybook -p 6006' http://localhost:6006 --serverTimeout 600000",
+    "storycap2": "storycap -C puppeteer --serverCmd 'start-storybook -p 6006' http://localhost:6006 --serverTimeout 60000",
+    "regression": "reg-suit run"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.9",
     "highlight.js": "^10.7.2",
     "modern-css-reset": "^1.4.0",
     "next": "10.2.0",
+    "puppeteer": "^13.7.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "styled-components": "^5.3.0"
@@ -33,6 +37,12 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.2.1",
+    "reg-keygen-git-hash-plugin": "^0.11.1",
+    "reg-notify-github-plugin": "^0.11.1",
+    "reg-publish-s3-plugin": "^0.11.0",
+    "reg-simple-keygen-plugin": "^0.11.0",
+    "reg-suit": "^0.11.1",
+    "storycap": "^3.1.7",
     "typescript": "^4.2.4"
   }
 }

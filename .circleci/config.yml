@@ -3,6 +3,7 @@ version: 2.1
 
 orbs:
   node: circleci/node@5.0.0
+  aws-cli: circleci/aws-cli@2.0.6
 
 commands:
   build_storybook:
@@ -34,23 +35,72 @@ commands:
           command: cp -r ./storybook-static/ ./public/storybook/
       - store_artifacts:
           path: ./storybook-static
+  screenshot:
+    steps:
+      - run:
+          name: update apt-get upgrade
+          command: sudo apt-get upgrade
+      - run:
+          name: Install Headless Chrome dependencies
+          command: sudo apt-get update && sudo apt-get -f install libnss3
+      - run:
+          name: Install Headless Chrome dependencies
+          command: |
+            sudo apt-get install -yq \
+            gconf-service libasound2 libatk1.0-0 libatk-bridge2.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
+            libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
+            libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 \
+            libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
+            fonts-liberation libappindicator1 lsb-release xdg-utils wget
+      - run:
+          name: copy
+          command: cp -r ./.aws ~/
+      - run:
+          name: screenshot
+          command: ls -la  ~/ && ls -la ./ && ls -la / && yarn storycap2
+  regression:
+    steps:
+      # - name: Configure AWS credentials
+      #     uses: aws-actions/configure-aws-credentials@v1
+      #     with:
+      #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #       aws-region: us-east-1
+      - run:
+          name: check node
+          command: node -v
+      # - run:
+      #     name: credential cp
+      #     command: cp -r ~/.aws && cp .aws/credentials ~/.aws/credentials
+      - run:
+          name: regression
+          command: yarn regression
 
 jobs:
+  aws-cli-cred-setup:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup:
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          aws-region: AWS_REGION
   build_set:
     executor:
       name: node/default
       tag: '16'
     docker:
-      - image: circleci/node:10.13
+      - image: circleci/node:14.16.1
     environment:
       TZ: "Asia/Tokyo"
     working_directory: ~/repo
     steps:
       - checkout
       - build_storybook
+      - screenshot
+      - regression
   build_set_dev:
     docker:
-      - image: circleci/node:10.13
+      - image: circleci/node:14.16.1
     environment:
       TZ: "Asia/Tokyo"
     working_directory: ~/repo
@@ -62,6 +112,11 @@ workflows:
   version: 2
   default:
     jobs:
+      - aws-cli-cred-setup:
+          context: aws
+          filters:
+            branches:
+              ignore: /(develop|main)/
       - build_set:
           filters:
             branches:

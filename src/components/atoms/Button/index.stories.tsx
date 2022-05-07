@@ -5,4 +5,4 @@ export default {
   component: Button,
 };
 
-export const Basic = () => <Button href="./">ボタン</Button>;
+export const Basic = () => <Button href="./">ボタンaaaaaaaaaaaa</Button>;
