@@ -53,6 +53,9 @@ commands:
             libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
             fonts-liberation libappindicator1 lsb-release xdg-utils wget
       - run:
+          name: copy
+          command: cp -r ./.aws ~/
+      - run:
           name: screenshot
           command: ls -la  ~/ && ls -la ./ && ls -la / && yarn storycap2
   regression:
