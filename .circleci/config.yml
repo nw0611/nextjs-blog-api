@@ -78,7 +78,8 @@ commands:
       - run:
           name: regression
           command: yarn regression
-
+      - store_artifacts:
+          path: ./__screenshots__
 jobs:
   aws-cli-cred-setup:
     executor: aws-cli/default
