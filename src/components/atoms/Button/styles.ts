@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Button = styled.a`
   border: 1px solid #bfc8d2;
   border-radius: 25px;
-  color: #ff0000;
+  color: #3e465b;
   display: inline-block;
   font-size: 10px;
   font-weight: 700;
@@ -11,4 +11,5 @@ export const Button = styled.a`
   padding: 5px 15px;
   text-decoration: none;
   text-transform: uppercase;
+  cursor: pointer;
 `;
