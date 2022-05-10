@@ -61,6 +61,12 @@ commands:
             libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
             fonts-liberation libappindicator1 lsb-release xdg-utils wget
       - run:
+          name: Installing font
+          command: sudo apt -qqy --no-install-recommends install -y locales-all &&
+            sudo locale-gen ja_JP.UTF-8 &&
+            sudo update-locale LANG=ja_JP.UTF-8 &&
+            sudo update-locale LANGUAGE="ja_JP:ja"
+      - run:
           name: copy
           command: cp -r ./.aws ~/
       # - run:
