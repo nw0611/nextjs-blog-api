@@ -55,6 +55,13 @@ commands:
       - run:
           name: install ja
           command: |
+            sudo apt -qqy --no-install-recommends install -y locales-all &&
+            sudo locale-gen ja_JP.UTF-8 &&
+            sudo update-locale LANG=ja_JP.UTF-8 &&
+            sudo update-locale LANGUAGE="ja_JP:ja
+      - run:
+          name: install ja
+          command: |
             sudo apt -qqy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
             sudo dpkg-reconfigure --frontend noninteractive locales &&
             sudo fc-cache -fv
