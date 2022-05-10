@@ -55,6 +55,9 @@ commands:
       - run:
           name: copy
           command: cp -r ./.aws ~/
+      # - run:
+      #     name: copy
+      #     command: export AWS_ACCESS_KEY_ID && export AWS_SECRET_ACCESS_KEY && export aws_access_key_id && export aws_access_key_id
       - run:
           name: screenshot
           command: ls -la  ~/ && ls -la ./ && ls -la / && yarn storycap2
