@@ -53,18 +53,14 @@ commands:
             libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
             fonts-liberation libappindicator1 lsb-release xdg-utils wget
       - run: |
-          # 日本語フォントをインストールする
           sudo apt -qqy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
           sudo dpkg-reconfigure --frontend noninteractive locales &&
           sudo fc-cache -fv
       - run: |
-          # 更新されたロケール設定を確認する
           locale -a | grep ja_JP
       - run: |
-          # `update-locale`実行後の状態を確認する
           cat /etc/default/locale
       - run: |
-          # 不要なパッケージやキャッシュを削除する
           sudo apt -qyy autoremove &&
           sudo apt -qyy clean &&
           sudo rm -rf /var/lib/apt/lists/*
