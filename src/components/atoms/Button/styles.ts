@@ -11,9 +11,4 @@ export const Button = styled.a`
   padding: 5px 15px;
   text-decoration: none;
   text-transform: uppercase;
-
-  &:hover {
-    border-color: #000;
-    border: 1px solid #ff0000;
-  }
 `;
