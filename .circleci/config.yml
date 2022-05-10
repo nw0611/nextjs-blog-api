@@ -52,22 +52,22 @@ commands:
             libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 \
             libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
             fonts-liberation libappindicator1 lsb-release xdg-utils wget
-      - run:
-          name: install ja
-          command: |
-            sudo apt -qqy --no-install-recommends install -y locales-all &&
-            sudo locale-gen ja_JP.UTF-8 &&
-            sudo update-locale LANG=ja_JP.UTF-8 &&
-            sudo update-locale LANGUAGE="ja_JP:ja
+      # - run:
+      #     name: install ja
+      #     command: |
+      #       sudo apt -qqy --no-install-recommends install -y locales-all &&
+      #       sudo locale-gen ja_JP.UTF-8 && // ここでエラーになる:
+      #       sudo update-locale LANG=ja_JP.UTF-8 &&
+      #       sudo update-locale LANGUAGE="ja_JP:ja
       - run:
           name: install ja
           command: |
             sudo apt -qqy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
             sudo dpkg-reconfigure --frontend noninteractive locales &&
             sudo fc-cache -fv
-      - run:
-          name: install ja
-          command: locale -a
+      # - run:
+      #     name: install ja
+      #     command: locale -a
       # - run: // ja_JPがいないのでエラーになる
       #     name: install ja
       #     command: grep ja_JP
