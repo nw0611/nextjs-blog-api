@@ -61,9 +61,9 @@ commands:
       - run:
           name: install ja
           command: locale -a
-      - run:
-          name: install ja
-          command: grep ja_JP
+      # - run: // ja_JPがいないのでエラーになる
+      #     name: install ja
+      #     command: grep ja_JP
       - run:
           name: install ja
           command: cat /etc/default/locale
