@@ -8,7 +8,7 @@ type Props = {
 const Button: React.FC<Props> = ({ children, href }) => {
   return (
     <Link href={href}>
-      <S.Button>{children}aaa</S.Button>
+      <S.Button>{children}</S.Button>
     </Link>
   );
 };
