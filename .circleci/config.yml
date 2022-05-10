@@ -60,7 +60,10 @@ commands:
             sudo fc-cache -fv
       - run:
           name: install ja
-          command: locale -a | grep ja_JP
+          command: locale -a
+      - run:
+          name: install ja
+          command: grep ja_JP
       - run:
           name: install ja
           command: cat /etc/default/locale
