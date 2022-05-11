@@ -85,7 +85,7 @@ commands:
       #     command: cp -r ./.aws ~/
       - run:
           name: credential
-          command: touch ~/.aws/credentials
+          command: mkdir ~/.aws && touch ~/.aws/credentials
       - run:
           name: credential
           command: echo aws_access_key_id=$aws_access_key_id > ~/.aws/credentials
