@@ -82,10 +82,11 @@ commands:
             sudo rm -rf /var/lib/apt/lists/*
       - run:
           name: credential
-          command: mkdir ~/.aws && touch ~/.aws/credentials
-      - run:
-          name: credential
-          command: echo [default] >> ~/.aws/credentials && echo aws_access_key_id=$aws_access_key_id >> ~/.aws/credentials && echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
+          command: |
+            mkdir ~/.aws && touch ~/.aws/credentials &&
+            echo [default] >> ~/.aws/credentials &&
+            echo aws_access_key_id=$aws_access_key_id >> ~/.aws/credentials &&
+            echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
       - run:
           name: cat
           command: cat ~/.aws/credentials
