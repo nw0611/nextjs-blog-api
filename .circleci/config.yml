@@ -85,7 +85,7 @@ commands:
           command: cp -r ./.aws ~/
       - run:
           name: export
-          command: ls -la ../../ && ls -la ../../.env
+          command: ls -la ../../
       - run:
           name: screenshot
           command: ls -la  ~/ && ls -la ./ && ls -la / && yarn storycap2
