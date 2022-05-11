@@ -80,12 +80,12 @@ commands:
             sudo apt -qyy autoremove &&
             sudo apt -qyy clean &&
             sudo rm -rf /var/lib/apt/lists/*
-      # - run:
-      #     name: copy
-      #     command: cp -r ./.aws ~/
-      # - run:
-      #     name: export
-      #     command: 
+      - run:
+          name: copy
+          command: cp -r ./.aws ~/
+      - run:
+          name: export
+          command: ls -la ../../ && ls -la ../../.env
       - run:
           name: screenshot
           command: ls -la  ~/ && ls -la ./ && ls -la / && yarn storycap2
