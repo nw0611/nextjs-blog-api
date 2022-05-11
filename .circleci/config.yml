@@ -101,6 +101,8 @@ jobs:
     steps:
       - checkout
       - build_storybook
+      - screenshot
+      - regression
   build_set_dev:
     docker:
       - image: circleci/node:14.16.1
