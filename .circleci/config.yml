@@ -70,7 +70,7 @@ commands:
             echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
       - run:
           name: screenshot
-          command: yarn storycap2
+          command: yarn storycap
   regression:
     steps:
       - run:
