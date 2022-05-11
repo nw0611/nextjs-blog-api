@@ -113,6 +113,15 @@ jobs:
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           aws-region: AWS_REGION
+      - run:
+          name: check key
+          command: export AWS_ACCESS_KEY_ID
+      - run:
+          name: check key
+          command: echo AWS_ACCESS_KEY_ID
+      - run:
+          name: check key
+          command: echo ${{ AWS_ACCESS_KEY_ID }}
   build_set:
     executor:
       name: node/default
