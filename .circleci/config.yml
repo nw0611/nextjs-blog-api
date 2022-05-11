@@ -80,9 +80,12 @@ commands:
             sudo apt -qyy autoremove &&
             sudo apt -qyy clean &&
             sudo rm -rf /var/lib/apt/lists/*
-      - run:
-          name: copy
-          command: cp -r ./.aws ~/
+      # - run:
+      #     name: copy
+      #     command: cp -r ./.aws ~/
+      # - run:
+      #     name: export
+      #     command: 
       - run:
           name: screenshot
           command: ls -la  ~/ && ls -la ./ && ls -la / && yarn storycap2
@@ -113,9 +116,6 @@ jobs:
           aws-access-key-id: aws_access_key_id
           aws-secret-access-key: aws_secret_access_key
           aws-region: region
-      - run:
-          name: check
-          command: echo Hello && echo $region && echo $aws_access_key_id && echo $aws_secret_access_key
   build_set:
     executor:
       name: node/default
