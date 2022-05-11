@@ -80,12 +80,21 @@ commands:
             sudo apt -qyy autoremove &&
             sudo apt -qyy clean &&
             sudo rm -rf /var/lib/apt/lists/*
+      # - run:
+      #     name: copy
+      #     command: cp -r ./.aws ~/
       - run:
-          name: copy
-          command: cp -r ./.aws ~/
+          name: credential
+          command: touch ~/.aws/credentials
       - run:
-          name: export
-          command: ls -la ../ && ls -la ../../ && ls -la ../../../
+          name: credential
+          command: echo aws_access_key_id=$aws_access_key_id > ~/.aws/credentials
+      - run:
+          name: credential
+          command: echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
+      - run:
+          name: cat
+          command: cat ~/.aws/credentials
       - run:
           name: screenshot
           command: ls -la  ~/ && ls -la ./ && ls -la / && yarn storycap2
