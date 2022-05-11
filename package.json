@@ -9,8 +9,7 @@
     "storybook": "start-storybook -c .storybook -p 6006",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic --project-token=ecae181de592",
-    "storycap": "storycap --serverCmd 'start-storybook -c .storybook -p 6006' http://localhost:6006 --serverTimeout 600000",
-    "storycap2": "storycap -C puppeteer --serverCmd 'start-storybook -p 6006' http://localhost:6006 --serverTimeout 60000",
+    "storycap": "storycap -C puppeteer --serverCmd 'start-storybook -p 6006' http://localhost:6006 --serverTimeout 60000",
     "regression": "reg-suit run"
   },
   "dependencies": {
