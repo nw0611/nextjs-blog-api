@@ -52,54 +52,30 @@ commands:
             libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 \
             libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
             fonts-liberation libappindicator1 lsb-release xdg-utils wget
-      # - run:
-      #     name: install ja
-      #     command: |
-      #       sudo apt -qqy --no-install-recommends install -y locales-all &&
-      #       sudo locale-gen ja_JP.UTF-8 && // ここでエラーになる:
-      #       sudo update-locale LANG=ja_JP.UTF-8 &&
-      #       sudo update-locale LANGUAGE="ja_JP:ja
       - run:
-          name: install ja
+          name: install ja font
           command: |
             sudo apt -qqy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
             sudo dpkg-reconfigure --frontend noninteractive locales &&
-            sudo fc-cache -fv
-      # - run:
-      #     name: install ja
-      #     command: locale -a
-      # - run: // ja_JPがいないのでエラーになる
-      #     name: install ja
-      #     command: grep ja_JP
-      # - run:
-      #     name: install ja
-      #     command: cat /etc/default/locale
-      - run:
-          name: install ja
-          command: |
+            sudo fc-cache -fv &&
             sudo apt -qyy autoremove &&
             sudo apt -qyy clean &&
             sudo rm -rf /var/lib/apt/lists/*
       - run:
-          name: copy
-          command: cp -r ./.aws ~/
+          name: make credential file
+          command: |
+            mkdir ~/.aws && touch ~/.aws/credentials &&
+            echo [default] >> ~/.aws/credentials &&
+            echo aws_access_key_id=$aws_access_key_id >> ~/.aws/credentials &&
+            echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
       - run:
           name: screenshot
-          command: ls -la  ~/ && ls -la ./ && ls -la / && yarn storycap2
+          command: yarn storycap2
   regression:
     steps:
-      # - name: Configure AWS credentials
-      #     uses: aws-actions/configure-aws-credentials@v1
-      #     with:
-      #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #       aws-region: us-east-1
       - run:
           name: check node
           command: node -v
-      # - run:
-      #     name: credential cp
-      #     command: cp -r ~/.aws && cp .aws/credentials ~/.aws/credentials
       - run:
           name: regression
           command: yarn regression
@@ -110,9 +86,9 @@ jobs:
     executor: aws-cli/default
     steps:
       - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          aws-region: AWS_REGION
+          aws-access-key-id: aws_access_key_id
+          aws-secret-access-key: aws_secret_access_key
+          aws-region: region
   build_set:
     executor:
       name: node/default
