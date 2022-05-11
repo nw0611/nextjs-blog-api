@@ -114,11 +114,8 @@ jobs:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           aws-region: AWS_REGION
       - run:
-          name: check key
-          command: echo PARAM_AWS_CLI_ACCESS_KEY_ID
-      - run:
-          name: check key
-          command: echo ${{ PARAM_AWS_CLI_ACCESS_KEY_ID }}
+          name: check
+          command: echo Hello && echo $AWS_ACCESS_KEY_ID && echo $secrets
   build_set:
     executor:
       name: node/default
