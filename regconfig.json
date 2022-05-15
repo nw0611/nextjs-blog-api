@@ -19,7 +19,7 @@
       "pathPrefix": "resource"
     },
     "reg-simple-keygen-plugin": {
-      "expectedKey": "${EXPECTED_HASH}",
+      "expectedKey": "develop_${EXPECTED_HASH}_2022_05_15",
       "actualKey": "${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}_${ACTUAL_COMMIT_DATE}"
     }
   }
