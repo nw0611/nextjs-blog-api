@@ -10,7 +10,7 @@
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic --project-token=ecae181de592",
     "storycap": "storycap -C puppeteer --serverCmd 'start-storybook -p 6006' http://localhost:6006 --serverTimeout 60000",
-    "regression": "export EXPECTED_KEY=$(git rev-parse origin/develop) && export ACTUAL_BRANCH_KEY=$(git rev-parse HEAD) && reg-suit run"
+    "regression": "export EXPECTED_KEY=$(git rev-parse origin/develop) && export ACTUAL_BRANCH=$(git rev-parse --abbrev-ref @) && export ACTUAL_BRANCH_KEY=$(git rev-parse HEAD) && reg-suit run"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.9",

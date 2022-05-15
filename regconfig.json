@@ -20,7 +20,7 @@
     },
     "reg-simple-keygen-plugin": {
       "expectedKey": "expected_develop_${EXPECTED_KEY}",
-      "actualKey": "actual_${ACTUAL_BRANCH_KEY}"
+      "actualKey": "${ACTUAL_BRANCH}_${ACTUAL_BRANCH_KEY}"
     }
   }
 }
