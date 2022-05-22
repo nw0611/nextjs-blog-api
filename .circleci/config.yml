@@ -34,7 +34,7 @@ commands:
           name: copy build
           command: cp -r ./storybook-static/ ./public/storybook/
       - store_artifacts:
-          path: ./storybook-static
+          path: ./public/storybook
   screenshot:
     steps:
       # - run:
