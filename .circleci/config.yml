@@ -51,7 +51,7 @@ commands:
             fonts-liberation libappindicator1 lsb-release xdg-utils wget
       - run:
           name: check locale
-          command: ls -la /etc && ls -la /etc/default && ls -la /etc/default/locale
+          command: cat /etc/default/locale
       - run:
           name: install ja font
           command: |
