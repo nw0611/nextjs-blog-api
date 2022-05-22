@@ -75,7 +75,13 @@ commands:
           command: node -v
       - run:
           name: regression
-          command: yarn regression
+          command: |
+            export EXPECTED_HASH=$(git rev-parse --short origin/develop) &&
+            export EXPECTED_COMMIT_DATE=$(git log origin/develop --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
+            export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
+            export ACTUAL_BRANCH_HASH=$(git rev-parse --short HEAD) &&
+            export ACTUAL_COMMIT_DATE=$(git log --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
+            yarn reg-suit run
       - store_artifacts:
           path: ./__screenshots__
 jobs:
@@ -98,8 +104,8 @@ jobs:
     steps:
       - checkout
       - build_storybook
-      - screenshot
-      - regression
+      # - screenshot
+      # - regression
   build_set_dev:
     docker:
       - image: circleci/node:14.16.1
