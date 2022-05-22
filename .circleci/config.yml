@@ -50,14 +50,14 @@ commands:
             libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
             fonts-liberation libappindicator1 lsb-release xdg-utils wget
       - run:
+          name: check locale
+          command: ls -la /etc && ls -la /etc/default && ls -la /etc/default/locale
+      - run:
           name: install ja font
           command: |
-            sudo apt -qqy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
+            sudo apt -qy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
             sudo dpkg-reconfigure --frontend noninteractive locales &&
-            sudo fc-cache -fv &&
-            sudo apt -qyy autoremove &&
-            sudo apt -qyy clean &&
-            sudo rm -rf /var/lib/apt/lists/*
+            sudo fc-cache -fv
       - run:
           name: make credential file
           command: |
