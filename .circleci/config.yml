@@ -70,7 +70,7 @@ commands:
             echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
       - run:
           name: Install
-          command: ls -la /home/ && ls -la /usr/bin/ && dpkg -L chromium
+          command: ls -la /home/ && ls -la /usr/bin/ && dpkg -L chromium && dpkg -L google-chrome-stable
       - run:
           name: screenshot
           command: yarn storycap
