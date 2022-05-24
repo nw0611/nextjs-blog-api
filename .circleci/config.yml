@@ -42,7 +42,10 @@ commands:
       #     command: sudo apt-get upgrade
       - run:
           name: Install
-          command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && sudo apt-get update && sudo apt-get install google-chrome*.rpm
+          command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+      - run:
+          name: Install
+          command: sudo apt-get update && sudo apt-get install google-chrome*.rpm
       - run:
           name: Install Headless Chrome dependencies
           command: |
