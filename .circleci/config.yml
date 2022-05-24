@@ -97,7 +97,7 @@ jobs:
       name: node/default
       tag: '16'
     docker:
-      - image: circleci/node:14.16.1
+      - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
     working_directory: ~/repo
@@ -108,7 +108,7 @@ jobs:
       - regression
   build_set_dev:
     docker:
-      - image: circleci/node:14.16.1
+      - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
     working_directory: ~/repo

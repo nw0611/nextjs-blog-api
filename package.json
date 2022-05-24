@@ -6,10 +6,10 @@
     "dev": "next dev",
     "build": "next build; build-storybook -c .storybook -o public/_storybook",
     "start": "next start",
-    "storybook": "start-storybook -c .storybook -p 6006",
+    "storybook": "start-storybook -c .storybook -p 6007",
     "build-storybook": "build-storybook",
     "chromatic": "npx chromatic --project-token=ecae181de592",
-    "storycap": "storycap -C puppeteer --serverCmd 'start-storybook -p 6006' http://localhost:6006 --serverTimeout 60000",
+    "storycap": "storycap -C stable --serverCmd 'start-storybook -p 6007' http://localhost:6007 --serverTimeout 60000",
     "regression": "export EXPECTED_HASH=$(git rev-parse --short origin/develop) && export EXPECTED_COMMIT_DATE=$(git log origin/develop --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) && export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) && export ACTUAL_BRANCH_HASH=$(git rev-parse --short HEAD) && export ACTUAL_COMMIT_DATE=$(git log --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) && reg-suit run"
   },
   "dependencies": {
