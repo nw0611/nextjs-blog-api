@@ -105,15 +105,14 @@ jobs:
   #         aws-secret-access-key: aws_secret_access_key
   #         aws-region: region
   build_set:
-    executor:
+    executor: aws-cli/default
       name: node/default
       tag: '16'
-    executor: aws-cli/default
-      steps:
-        - aws-cli/setup:
-            aws-access-key-id: aws_access_key_id
-            aws-secret-access-key: aws_secret_access_key
-            aws-region: region
+    steps:
+      - aws-cli/setup:
+        aws-access-key-id: aws_access_key_id
+        aws-secret-access-key: aws_secret_access_key
+        aws-region: region
     docker:
       - image: circleci/node:14.16.1-browsers
     environment:
