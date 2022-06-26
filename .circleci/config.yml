@@ -98,7 +98,7 @@ commands:
       - run:
           name: Deploy to S3 if branch is Master.
           command: |
-            aws s3 ls && aws s3 sync ./public/regression s3://vrt-resouce/ --exact-timestamps
+            aws s3 sync ./public/regression s3://vrt-resouce/ --exact-timestamps
 jobs:
   # aws-cli-cred-setup:
   #   executor: aws-cli/default
