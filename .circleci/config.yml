@@ -76,6 +76,12 @@ commands:
       - store_artifacts:
           path: ./public/storycap
   regression:
+    executor: aws-cli/default
+    steps:
+      - aws-cli/setup:
+          aws-access-key-id: aws_access_key_id
+          aws-secret-access-key: aws_secret_access_key
+          aws-region: region
     steps:
       - run:
           name: check node
@@ -105,7 +111,7 @@ jobs:
   #         aws-secret-access-key: aws_secret_access_key
   #         aws-region: region
   build_set:
-    executor: aws-cli/default
+    executor:
       name: node/default
       tag: '16'
     docker:
