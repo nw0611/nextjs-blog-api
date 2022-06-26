@@ -114,7 +114,7 @@ commands:
           name: Deploy to S3
           command: |
             export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
-            aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}_ACTUAL_BRANCH_HASH/ --exact-timestamps --acl public-read
+            aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}/ --exact-timestamps --acl public-read
 jobs:
   build_set:
     executor:
