@@ -40,15 +40,6 @@ commands:
           path: ./public/storybook
   screenshot:
     steps:
-      # - run:
-      #     name: update apt-get upgrade
-      #     command: sudo apt-get upgrade
-      # - run:
-      #     name: Install
-      #     command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-      # - run:
-      #     name: Install
-      #     command: yum -y install google-chrome*.rp
       - run:
           name: Install Headless Chrome dependencies
           command: |
@@ -106,17 +97,23 @@ commands:
             export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
             aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}/ --exact-timestamps --acl public-read
 jobs:
-  aws-cli-cred-setup:
-    executor: aws-cli/default
-    steps:
-      - aws-cli/setup:
-          aws-access-key-id: aws_access_key_id
-          aws-secret-access-key: aws_secret_access_key
-          aws-region: region
+  # aws-cli-cred-setup:
+  #   executor: aws-cli/default
+  #   steps:
+  #     - aws-cli/setup:
+  #         aws-access-key-id: aws_access_key_id
+  #         aws-secret-access-key: aws_secret_access_key
+  #         aws-region: region
   build_set:
     executor:
       name: node/default
       tag: '16'
+    executor: aws-cli/default
+      steps:
+        - aws-cli/setup:
+            aws-access-key-id: aws_access_key_id
+            aws-secret-access-key: aws_secret_access_key
+            aws-region: region
     docker:
       - image: circleci/node:14.16.1-browsers
     environment:
