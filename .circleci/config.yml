@@ -74,6 +74,8 @@ commands:
       - run:
           name: screenshot
           command: yarn storycap
+      - store_artifacts:
+          path: ./public/storycap
   regression:
     steps:
       - run:
@@ -89,7 +91,7 @@ commands:
             export ACTUAL_COMMIT_DATE=$(git log --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
             yarn reg-suit run
       - store_artifacts:
-          path: ./__screenshots__
+          path: ./public/regression
 jobs:
   # aws-cli-cred-setup:
   #   executor: aws-cli/default
