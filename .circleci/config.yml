@@ -96,9 +96,9 @@ commands:
       - store_artifacts:
           path: ./public/regression
       - run:
-          name: Deploy to S3 if branch is Master.
+          name: Deploy to S3
           command: |
-            aws s3 sync ./public/regression s3://vrt-resouce/ --exact-timestamps
+            aws s3 sync ./public/regression s3://vrt-resouce/resource/$ACTUAL_BRANCH/ --exact-timestamps
 jobs:
   # aws-cli-cred-setup:
   #   executor: aws-cli/default
