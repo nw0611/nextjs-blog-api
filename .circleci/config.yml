@@ -12,6 +12,9 @@ commands:
           name: check node version
           command: node -v
       - run:
+          name: check aws version
+          command: aws --version
+      - run:
           name: Installing node modules
           command: npm install
       - run:
@@ -92,6 +95,10 @@ commands:
             yarn reg-suit run
       - store_artifacts:
           path: ./public/regression
+      - run:
+          name: Deploy to S3 if branch is Master.
+          command: |
+            aws s3 sync ./public/regression s3://vrt-resouce/ --exact-timestamps --delete
 jobs:
   # aws-cli-cred-setup:
   #   executor: aws-cli/default
