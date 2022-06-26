@@ -12,32 +12,29 @@ commands:
           name: check node version
           command: node -v
       - run:
-          name: check aws version
-          command: aws --version
-      - run:
           name: Installing node modules
           command: npm install
       - run:
           name: build storybook
           command: yarn build-storybook
       - store_artifacts:
-          path: ./storybook-static
-  build_storybook_dev:
-    steps:
-      - run:
-          name: check node version
-          command: node -v
-      - run:
-          name: Installing node modules
-          command: npm install
-      - run:
-          name: build storybook
-          command: yarn build-storybook && mkdir ./public/storybook
-      - run:
-          name: copy build
-          command: cp -r ./storybook-static/ ./public/storybook/
-      - store_artifacts:
           path: ./public/storybook
+  # build_storybook_dev:
+  #   steps:
+  #     - run:
+  #         name: check node version
+  #         command: node -v
+  #     - run:
+  #         name: Installing node modules
+  #         command: npm install
+  #     - run:
+  #         name: build storybook
+  #         command: yarn build-storybook && mkdir ./public/storybook
+  #     - run:
+  #         name: copy build
+  #         command: cp -r ./storybook-static/ ./public/storybook/
+  #     - store_artifacts:
+  #         path: ./public/storybook
   screenshot:
     steps:
       - run:
@@ -128,7 +125,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
-      - build_storybook_dev
+      - build_storybook
       - screenshot
       - regression
 
