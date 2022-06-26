@@ -99,8 +99,8 @@ commands:
           name: Deploy to S3
           command: |
             export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
-            echo ACTUAL_BRANCH && echo ${ACTUAL_BRANCH} &&
-            aws s3 sync ./public/regression s3://vrt-resouce/resource/ --exact-timestamps
+            echo ${ACTUAL_BRANCH} &&
+            aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}/ --exact-timestamps
 jobs:
   # aws-cli-cred-setup:
   #   executor: aws-cli/default
