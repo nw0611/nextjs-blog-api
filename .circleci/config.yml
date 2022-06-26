@@ -34,20 +34,23 @@ commands:
           name: copy build
           command: cp -r ./storybook-static/ ./public/storybook/
       - store_artifacts:
-          path: ./storybook-static
+          path: ./public/storybook
   screenshot:
     steps:
-      - run:
-          name: update apt-get upgrade
-          command: sudo apt-get upgrade
-      - run:
-          name: Install Headless Chrome dependencies
-          command: sudo apt-get update && sudo apt-get -f install libnss3
+      # - run:
+      #     name: update apt-get upgrade
+      #     command: sudo apt-get upgrade
+      # - run:
+      #     name: Install
+      #     command: wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+      # - run:
+      #     name: Install
+      #     command: yum -y install google-chrome*.rp
       - run:
           name: Install Headless Chrome dependencies
           command: |
-            sudo apt-get install -yq \
-            gconf-service libasound2 libatk1.0-0 libatk-bridge2.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
+            sudo apt-get update && sudo apt-get install \
+            chromium libnss3 gconf-service libasound2 libatk1.0-0 libatk-bridge2.0-0 libc6 libcairo2 libcups2 libdbus-1-3 \
             libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 \
             libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 \
             libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
@@ -55,12 +58,9 @@ commands:
       - run:
           name: install ja font
           command: |
-            sudo apt -qqy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
+            sudo apt -qy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
             sudo dpkg-reconfigure --frontend noninteractive locales &&
-            sudo fc-cache -fv &&
-            sudo apt -qyy autoremove &&
-            sudo apt -qyy clean &&
-            sudo rm -rf /var/lib/apt/lists/*
+            sudo fc-cache -fv
       - run:
           name: make credential file
           command: |
@@ -68,6 +68,9 @@ commands:
             echo [default] >> ~/.aws/credentials &&
             echo aws_access_key_id=$aws_access_key_id >> ~/.aws/credentials &&
             echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
+      - run:
+          name: Install
+          command: ls -la /home/ && ls -la /usr/bin/ && dpkg -L chromium && dpkg -L google-chrome-stable
       - run:
           name: screenshot
           command: yarn storycap
@@ -78,23 +81,29 @@ commands:
           command: node -v
       - run:
           name: regression
-          command: yarn regression
+          command: |
+            export EXPECTED_HASH=$(git rev-parse --short origin/develop) &&
+            export EXPECTED_COMMIT_DATE=$(git log origin/develop --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
+            export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
+            export ACTUAL_BRANCH_HASH=$(git rev-parse --short HEAD) &&
+            export ACTUAL_COMMIT_DATE=$(git log --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
+            yarn reg-suit run
       - store_artifacts:
           path: ./__screenshots__
 jobs:
-  aws-cli-cred-setup:
-    executor: aws-cli/default
-    steps:
-      - aws-cli/setup:
-          aws-access-key-id: aws_access_key_id
-          aws-secret-access-key: aws_secret_access_key
-          aws-region: region
+  # aws-cli-cred-setup:
+  #   executor: aws-cli/default
+  #   steps:
+  #     - aws-cli/setup:
+  #         aws-access-key-id: aws_access_key_id
+  #         aws-secret-access-key: aws_secret_access_key
+  #         aws-region: region
   build_set:
     executor:
       name: node/default
       tag: '16'
     docker:
-      - image: circleci/node:14.16.1
+      - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
     working_directory: ~/repo
@@ -105,7 +114,7 @@ jobs:
       - regression
   build_set_dev:
     docker:
-      - image: circleci/node:14.16.1
+      - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
     working_directory: ~/repo
@@ -119,11 +128,11 @@ workflows:
   version: 2
   default:
     jobs:
-      - aws-cli-cred-setup:
-          context: aws
-          filters:
-            branches:
-              ignore: /(develop|main)/
+      # - aws-cli-cred-setup:
+      #     context: aws
+      #     filters:
+      #       branches:
+      #         ignore: /(develop|main)/
       - build_set:
           filters:
             branches:
