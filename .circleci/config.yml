@@ -100,7 +100,7 @@ commands:
           command: |
             export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
             echo ${ACTUAL_BRANCH} &&
-            aws s3 sync ./public/regression s3://vrt-resouce/resource/ --exact-timestamps
+            aws s3 sync ./public/regression s3://vrt-resouce/resource/ --exact-timestamps --acl public-read
 jobs:
   # aws-cli-cred-setup:
   #   executor: aws-cli/default
