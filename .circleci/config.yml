@@ -145,11 +145,8 @@ workflows:
   version: 2
   default:
     jobs:
-      # - aws-cli-cred-setup:
-      #     context: aws
-      #     filters:
-      #       branches:
-      #         ignore: /(develop|main)/
+      - aws-cli-cred-setup:
+          context: aws
       - build_set:
           filters:
             branches:
