@@ -108,11 +108,6 @@ jobs:
     executor: aws-cli/default
       name: node/default
       tag: '16'
-    steps:
-      - aws-cli/setup:
-        aws-access-key-id: aws_access_key_id
-        aws-secret-access-key: aws_secret_access_key
-        aws-region: region
     docker:
       - image: circleci/node:14.16.1-browsers
     environment:
