@@ -64,6 +64,11 @@ commands:
             sudo apt -qy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
             sudo dpkg-reconfigure --frontend noninteractive locales &&
             sudo fc-cache -fv
+      - run:
+          name: set credentials
+          command: |
+            aws configure set aws_access_key_id $aws_access_key_id &&
+            aws configure set aws_secret_access_key $aws_secret_access_key
       # - run:
       #     name: make credential file
       #     command: |
