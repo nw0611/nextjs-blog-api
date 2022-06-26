@@ -64,13 +64,13 @@ commands:
             sudo apt -qy --no-install-recommends install -y fonts-takao-gothic fonts-takao-mincho &&
             sudo dpkg-reconfigure --frontend noninteractive locales &&
             sudo fc-cache -fv
-      - run:
-          name: make credential file
-          command: |
-            mkdir ~/.aws && touch ~/.aws/credentials &&
-            echo [default] >> ~/.aws/credentials &&
-            echo aws_access_key_id=$aws_access_key_id >> ~/.aws/credentials &&
-            echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
+      # - run:
+      #     name: make credential file
+      #     command: |
+      #       mkdir ~/.aws && touch ~/.aws/credentials &&
+      #       echo [default] >> ~/.aws/credentials &&
+      #       echo aws_access_key_id=$aws_access_key_id >> ~/.aws/credentials &&
+      #       echo aws_secret_access_key=$aws_secret_access_key >> ~/.aws/credentials
       - run:
           name: Install
           command: ls -la /home/ && ls -la /usr/bin/ && dpkg -L chromium && dpkg -L google-chrome-stable
