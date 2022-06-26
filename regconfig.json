@@ -1,7 +1,7 @@
 {
   "core": {
-    "workingDir": ".reg",
-    "actualDir": "__screenshots__",
+    "workingDir": "./public/regression",
+    "actualDir": "./public/storycap",
     "thresholdRate": 0,
     "addIgnore": true,
     "ximgdiff": {
