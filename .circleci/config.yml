@@ -98,7 +98,7 @@ commands:
       - run:
           name: Deploy to S3
           command: |
-            aws s3 sync ./public/regression s3://vrt-resouce/resource/$ACTUAL_BRANCH/ --exact-timestamps
+            aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}_${ACTUAL_COMMIT_DATE}/ --exact-timestamps
 jobs:
   # aws-cli-cred-setup:
   #   executor: aws-cli/default
