@@ -75,13 +75,14 @@ commands:
           command: yarn storycap
       - store_artifacts:
           path: ./public/storycap
-  regression:
+  aws-cli-cred-setup:
     executor: aws-cli/default
     steps:
       - aws-cli/setup:
           aws-access-key-id: aws_access_key_id
           aws-secret-access-key: aws_secret_access_key
           aws-region: region
+  regression:
     steps:
       - run:
           name: check node
@@ -124,6 +125,7 @@ jobs:
       - aws-cli/install
       - build_storybook
       - screenshot
+      - aws-cli-cred-setup
       - regression
   build_set_dev:
     docker:
