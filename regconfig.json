@@ -1,7 +1,7 @@
 {
   "core": {
-    "workingDir": ".reg",
-    "actualDir": "__screenshots__",
+    "workingDir": "./public/regression",
+    "actualDir": "./public/storycap",
     "thresholdRate": 0,
     "addIgnore": true,
     "ximgdiff": {
@@ -13,10 +13,6 @@
       "prComment": true,
       "prCommentBehavior": "default",
       "clientId": "MzYzNba0MDWy1M9LrSjJKtZNyslP100syNQ3MjU1sDQ0MdTPKzcwMzQEAA=="
-    },
-    "reg-publish-s3-plugin": {
-      "bucketName": "vrt-resouce",
-      "pathPrefix": "resource"
     },
     "reg-simple-keygen-plugin": {
       "expectedKey": "develop_${EXPECTED_HASH}_${EXPECTED_COMMIT_DATE}",
