@@ -148,7 +148,7 @@ workflows:
   version: 2
   develop:
     jobs:
-      - build_set_dev:
+      - build_set_dev
 # workflows:
 #   sample:
 #     jobs:
