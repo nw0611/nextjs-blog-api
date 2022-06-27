@@ -146,9 +146,6 @@ jobs:
 
 workflows:
   version: 2
-  default:
-    jobs:
-      - build_set_dev:
   develop:
     jobs:
       - build_set_dev:
