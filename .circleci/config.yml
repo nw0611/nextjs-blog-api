@@ -149,15 +149,15 @@ workflows:
   default:
     jobs:
       - build_set:
-          filters:
-            branches:
-              ignore: /(develop|main)/
-  develop:
-    jobs:
-      - build_set_dev:
-          filters:
-            branches:
-              only: /develop/
+  #         filters:
+  #           branches:
+  #             ignore: /(develop|main)/
+  # develop:
+  #   jobs:
+  #     - build_set_dev:
+  #         filters:
+  #           branches:
+  #             only: /develop/
 # workflows:
 #   sample:
 #     jobs:
