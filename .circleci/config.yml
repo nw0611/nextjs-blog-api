@@ -149,9 +149,6 @@ workflows:
   develop:
     jobs:
       - build_set_dev:
-          filters:
-            branches:
-              only: /develop/
 # workflows:
 #   sample:
 #     jobs:
