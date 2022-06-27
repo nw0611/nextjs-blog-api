@@ -131,33 +131,30 @@ jobs:
       - build_storybook
       - screenshot
       - regression
-  # build_set_dev:
-  #   docker:
-  #     - image: circleci/node:14.16.1-browsers
-  #   environment:
-  #     TZ: "Asia/Tokyo"
-  #   working_directory: ~/repo
-  #   steps:
-  #     - checkout
-  #     - aws-cli/install
-  #     - build_storybook
-  #     - screenshot
-  #     - regression
+  build_set_dev:
+    docker:
+      - image: circleci/node:14.16.1-browsers
+    environment:
+      TZ: "Asia/Tokyo"
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - aws-cli/install
+      - build_storybook
+      - screenshot
+      - regression
 
 workflows:
   version: 2
   default:
     jobs:
-      - build_set:
-  #         filters:
-  #           branches:
-  #             ignore: /(develop|main)/
-  # develop:
-  #   jobs:
-  #     - build_set_dev:
-  #         filters:
-  #           branches:
-  #             only: /develop/
+      - build_set_dev:
+  develop:
+    jobs:
+      - build_set_dev:
+          filters:
+            branches:
+              only: /develop/
 # workflows:
 #   sample:
 #     jobs:
