@@ -9,9 +9,6 @@ commands:
   build_storybook:
     steps:
       - run:
-          name: check node version
-          command: node -v
-      - run:
           name: Installing node modules
           command: npm install
       - run:
@@ -19,22 +16,6 @@ commands:
           command: yarn build-storybook
       - store_artifacts:
           path: ./storybook-static/
-  # build_storybook_dev:
-  #   steps:
-  #     - run:
-  #         name: check node version
-  #         command: node -v
-  #     - run:
-  #         name: Installing node modules
-  #         command: npm install
-  #     - run:
-  #         name: build storybook
-  #         command: yarn build-storybook && mkdir ./public/storybook
-  #     - run:
-  #         name: copy build
-  #         command: cp -r ./storybook-static/ ./public/storybook/
-  #     - store_artifacts:
-  #         path: ./public/storybook
   screenshot:
     steps:
       - run:
@@ -79,16 +60,32 @@ commands:
   #         aws-access-key-id: aws_access_key_id
   #         aws-secret-access-key: aws_secret_access_key
   #         aws-region: region
+  # regression:
+  #   steps:
+  #     - run:
+  #         name: regression
+  #         command: |
+  #           export EXPECTED_HASH=$(git rev-parse --short origin/develop) &&
+  #           export EXPECTED_COMMIT_DATE=$(git log origin/develop --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
+  #           export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
+  #           export ACTUAL_BRANCH_HASH=$(git rev-parse --short HEAD) &&
+  #           export ACTUAL_COMMIT_DATE=$(git log --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
+  #           yarn reg-suit run
+  #     - store_artifacts:
+  #         path: ./public/regression
+  #     - run:
+  #         name: Deploy to S3
+  #         command: |
+  #           export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
+  #           aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}/ --exact-timestamps --acl public-read
   regression:
     steps:
       - run:
           name: regression
           command: |
             export EXPECTED_HASH=$(git rev-parse --short origin/develop) &&
-            export EXPECTED_COMMIT_DATE=$(git log origin/develop --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
             export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
             export ACTUAL_BRANCH_HASH=$(git rev-parse --short HEAD) &&
-            export ACTUAL_COMMIT_DATE=$(git log --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
             yarn reg-suit run
       - store_artifacts:
           path: ./public/regression
@@ -96,24 +93,7 @@ commands:
           name: Deploy to S3
           command: |
             export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
-            aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}_ACTUAL_BRANCH_HASH/ --exact-timestamps --acl public-read
-  regression_dev:
-    steps:
-      - run:
-          name: regression
-          command: |
-            export EXPECTED_HASH=$(git rev-parse --short origin/develop) &&
-            export EXPECTED_COMMIT_DATE=$(git log origin/develop --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
-            export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
             export ACTUAL_BRANCH_HASH=$(git rev-parse --short HEAD) &&
-            export ACTUAL_COMMIT_DATE=$(git log --date=iso --date=format:'%Y_%m_%d' --pretty=format:'%ad' -1) &&
-            yarn reg-suit run
-      - store_artifacts:
-          path: ./public/regression
-      - run:
-          name: Deploy to S3
-          command: |
-            export ACTUAL_BRANCH=$(git rev-parse --short --abbrev-ref @) &&
             aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}/ --exact-timestamps --acl public-read
 jobs:
   build_set:

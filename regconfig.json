@@ -15,8 +15,8 @@
       "clientId": "MzYzNba0MDWy1M9LrSjJKtZNyslP100syNQ3MjU1sDQ0MdTPKzcwMzQEAA=="
     },
     "reg-simple-keygen-plugin": {
-      "expectedKey": "develop_${EXPECTED_HASH}_${EXPECTED_COMMIT_DATE}",
-      "actualKey": "${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}_${ACTUAL_COMMIT_DATE}"
+      "expectedKey": "develop_${EXPECTED_HASH}",
+      "actualKey": "${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}"
     }
   }
 }
