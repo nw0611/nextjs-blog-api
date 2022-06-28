@@ -129,13 +129,13 @@ workflows:
   version: 2
   default:
     jobs:
-      - build_set
+      - build_set:
           filters:
             branches:
               ignore: /(develop|main)/
   develop:
     jobs:
-      - build_set_dev
+      - build_set_dev:
           filters:
             branches:
               only: /develop/
