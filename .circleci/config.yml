@@ -21,7 +21,7 @@ commands:
          key: cache-yarn-{{ checksum "package.json" }}
          paths:
            - ./node_modules
-           - ./package.lock
+           - ./package-lock.json
   build_storybook:
     steps:
       - run:
@@ -139,6 +139,9 @@ jobs:
       tag: '16'
     docker:
       - image: circleci/node:14.16.1-browsers
+    environment:
+      TZ: "Asia/Tokyo"
+    working_directory: ~/repo
     steps:
       - checkout
       - yarn_install
@@ -174,10 +177,7 @@ workflows:
   version: 2
   default:
     jobs:
-      - package_install
       - build_set:
-          requires:
-            - package_install
           filters:
             branches:
               ignore: /(develop|main)/
