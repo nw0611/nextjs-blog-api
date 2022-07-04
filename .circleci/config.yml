@@ -18,7 +18,7 @@ commands:
           name: Installing node modules
           command: if [ ! -d ./node_modules ] ; then npm install ; fi
       - save_cache:
-         key: cache-yarn-{{ checksum "yarn.lock" }}-{{ checksum "package.json" }}-v1
+         key: cache-yarn-{{ checksum "package.json" }}
          paths:
            - ./node_modules
   build_storybook:
