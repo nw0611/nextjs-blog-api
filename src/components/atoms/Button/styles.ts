@@ -12,4 +12,5 @@ export const Button = styled.a`
   text-decoration: none;
   text-transform: uppercase;
   cursor: pointer;
+  background-color: #ff0000;
 `;

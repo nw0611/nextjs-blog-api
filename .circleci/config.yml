@@ -6,11 +6,34 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.6
 
 commands:
-  build_storybook:
+  yarn_install:
     steps:
       - run:
+          name: check
+          command: ls -la ./
+      - restore_cache:
+         keys:
+          - cache-yarn-{{ checksum "package.json" }}
+      - run:
+          name: check
+          command: ls -la ./
+      - run:
           name: Installing node modules
-          command: npm install
+          command: if [ ! -d ./node_modules ] ; then npm install ; fi
+      - save_cache:
+         key: cache-yarn-{{ checksum "package.json" }}
+         paths:
+           - ./node_modules
+  cache_restore_install_modules:
+    steps:
+      - restore_cache:
+         keys:
+          - cache-yarn-{{ checksum "package.json" }}
+      - run:
+          name: Installing node modules
+          command: if [ ! -d ./node_modules ] ; then npm install ; fi
+  build_storybook:
+    steps:
       - run:
           name: build storybook
           command: yarn build-storybook
@@ -96,6 +119,15 @@ commands:
             export ACTUAL_BRANCH_HASH=$(git rev-parse --short HEAD) &&
             aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}/ --exact-timestamps --acl public-read
 jobs:
+  package_install:
+    executor:
+      name: node/default
+      tag: '16'
+    docker:
+      - image: circleci/node:14.16.1-browsers
+    steps:
+      - checkout
+      - yarn_install
   build_set:
     executor:
       name: node/default
@@ -104,10 +136,10 @@ jobs:
       - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
-    working_directory: ~/repo
     steps:
       - checkout
       - aws-cli/install
+      - cache_restore_install_modules
       - build_storybook
       - screenshot
       - regression
@@ -116,7 +148,6 @@ jobs:
       - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
-    working_directory: ~/repo
     steps:
       - checkout
       - aws-cli/install
@@ -128,7 +159,10 @@ workflows:
   version: 2
   default:
     jobs:
+      - package_install
       - build_set:
+          requires:
+            - package_install
           filters:
             branches:
               ignore: /(develop|main)/

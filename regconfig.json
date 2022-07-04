@@ -17,6 +17,10 @@
     "reg-simple-keygen-plugin": {
       "expectedKey": "develop_${EXPECTED_HASH}",
       "actualKey": "${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}"
+    },
+    "reg-publish-s3-plugin": {
+      "bucketName": "vrt-resouce",
+      "pathPrefix": "resource"
     }
   }
 }
