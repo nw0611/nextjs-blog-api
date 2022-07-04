@@ -24,20 +24,16 @@ commands:
          key: cache-yarn-{{ checksum "package.json" }}
          paths:
            - ./node_modules
-  build_storybook:
+  cache_restore_install_modules:
     steps:
-      - run:
-          name: check
-          command: ls -la ./
       - restore_cache:
          keys:
           - cache-yarn-{{ checksum "package.json" }}
       - run:
-          name: check
-          command: ls -la ./
-      - run:
           name: Installing node modules
           command: if [ ! -d ./node_modules ] ; then npm install ; fi
+  build_storybook:
+    steps:
       - run:
           name: build storybook
           command: yarn build-storybook
@@ -45,18 +41,6 @@ commands:
           path: ./storybook-static/
   screenshot:
     steps:
-      - run:
-          name: check
-          command: ls -la ./
-      - restore_cache:
-         keys:
-          - cache-yarn-{{ checksum "package.json" }}
-      - run:
-          name: check
-          command: ls -la ./
-      - run:
-          name: Installing node modules
-          command: if [ ! -d ./node_modules ] ; then npm install ; fi
       - run:
           name: Install Headless Chrome dependencies
           command: |
@@ -155,6 +139,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
+      - cache_restore_install_modules
       - build_storybook
       - screenshot
       - regression
