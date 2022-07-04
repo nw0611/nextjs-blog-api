@@ -117,6 +117,7 @@ jobs:
     docker:
       - image: circleci/node:14.16.1-browsers
     steps:
+      - checkout
       - yarn_install
   build_set:
     executor:
