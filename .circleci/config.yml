@@ -11,15 +11,12 @@ commands:
       - run:
           name: check
           command: ls -la ./
-      - restore_cache:
-         keys:
-          - cache-yarn-{{ checksum "package.json" }}
+      - run:
+          name: Installing node modules
+          command: npm install
       - run:
           name: check
           command: ls -la ./
-      - run:
-          name: Installing node modules
-          command: if [ ! -d ./node_modules ] ; then npm install ; fi
       - save_cache:
          key: cache-yarn-{{ checksum "package.json" }}
          paths:
