@@ -6,14 +6,19 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.6
 
 commands:
-  build_storybook:
+  yarn_install:
     steps:
       - run:
           name: check
           command: ls -la ./
+      - restore_cache:
+         keys:
+          - cache-yarn-{{ checksum "package.json" }}
       - run:
           name: Installing node modules
           command: if [ ! -d ./node_modules ] ; then npm install ; fi
+  build_storybook:
+    steps:
       - run:
           name: build storybook
           command: yarn build-storybook
@@ -105,6 +110,14 @@ commands:
             export ACTUAL_BRANCH_HASH=$(git rev-parse --short HEAD) &&
             aws s3 sync ./public/regression s3://vrt-resouce/resource/${ACTUAL_BRANCH}_${ACTUAL_BRANCH_HASH}/ --exact-timestamps --acl public-read
 jobs:
+  package_install:
+    executor:
+      name: node/default
+      tag: '16'
+    docker:
+      - image: circleci/node:14.16.1-browsers
+    steps:
+      - yarn_install
   build_set:
     executor:
       name: node/default
@@ -117,6 +130,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
+      - yarn_install
       - build_storybook
       - screenshot
       - regression
@@ -129,6 +143,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
+      - yarn_install
       - build_storybook
       - screenshot
       - regression
@@ -137,6 +152,7 @@ workflows:
   version: 2
   default:
     jobs:
+      - package_install
       - build_set:
           filters:
             branches:
