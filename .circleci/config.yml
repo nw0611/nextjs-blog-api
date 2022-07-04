@@ -15,6 +15,9 @@ commands:
          keys:
           - cache-yarn-{{ checksum "package.json" }}
       - run:
+          name: check
+          command: ls -la ./
+      - run:
           name: Installing node modules
           command: if [ ! -d ./node_modules ] ; then npm install ; fi
       - save_cache:
