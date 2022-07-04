@@ -27,6 +27,12 @@ commands:
   build_storybook:
     steps:
       - run:
+          name: check
+          command: ls -la ./
+      - run:
+          name: Installing node modules
+          command: if [ ! -d ./node_modules ] ; then npm install ; fi
+      - run:
           name: build storybook
           command: yarn build-storybook
       - store_artifacts:
@@ -138,7 +144,6 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
-      - yarn_install
       - build_storybook
       - screenshot
       - regression
@@ -151,7 +156,6 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
-      - yarn_install
       - build_storybook
       - screenshot
       - regression
