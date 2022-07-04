@@ -168,7 +168,10 @@ workflows:
               ignore: /(develop|main)/
   develop:
     jobs:
+      - package_install
       - build_set_dev:
+          requires:
+            - package_install
           filters:
             branches:
               only: /develop/
