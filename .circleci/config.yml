@@ -151,6 +151,7 @@ jobs:
     steps:
       - checkout
       - aws-cli/install
+      - cache_restore_install_modules
       - build_storybook
       - screenshot
       - regression
