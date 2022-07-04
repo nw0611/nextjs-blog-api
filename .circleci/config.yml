@@ -154,6 +154,8 @@ workflows:
     jobs:
       - package_install
       - build_set:
+          requires:
+            - package_install
           filters:
             branches:
               ignore: /(develop|main)/
