@@ -16,11 +16,12 @@ commands:
           command: npm install
       - run:
           name: check
-          command: ls -la ./
+          command: ls -la ./ && ls -la /home/circleci/project/
       - save_cache:
          key: cache-yarn-{{ checksum "package.json" }}
          paths:
            - ./node_modules
+           - ./package.lock
   build_storybook:
     steps:
       - run:
