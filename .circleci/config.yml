@@ -141,7 +141,6 @@ jobs:
       - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
-    working_directory: ~/repo
     steps:
       - checkout
       - yarn_install
@@ -153,7 +152,6 @@ jobs:
       - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
-    working_directory: ~/repo
     steps:
       - checkout
       - aws-cli/install
@@ -165,7 +163,6 @@ jobs:
       - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
-    working_directory: ~/repo
     steps:
       - checkout
       - aws-cli/install
@@ -177,7 +174,10 @@ workflows:
   version: 2
   default:
     jobs:
+      - package_install
       - build_set:
+          requires:
+            - package_install
           filters:
             branches:
               ignore: /(develop|main)/
