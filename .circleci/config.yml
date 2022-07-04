@@ -11,17 +11,19 @@ commands:
       - run:
           name: check
           command: ls -la ./
-      - run:
-          name: Installing node modules
-          command: npm install
+      - restore_cache:
+         keys:
+          - cache-yarn-{{ checksum "package.json" }}
       - run:
           name: check
-          command: ls -la ./ && ls -la /home/circleci/project/
+          command: ls -la ./
+      - run:
+          name: Installing node modules
+          command: if [ ! -d ./node_modules ] ; then npm install ; fi
       - save_cache:
          key: cache-yarn-{{ checksum "package.json" }}
          paths:
            - ./node_modules
-           - ./package-lock.json
   build_storybook:
     steps:
       - run:
@@ -139,8 +141,7 @@ jobs:
       tag: '16'
     docker:
       - image: circleci/node:14.16.1-browsers
-    environment:
-      TZ: "Asia/Tokyo"
+    working_directory: ~/repo
     steps:
       - checkout
       - yarn_install
@@ -152,6 +153,7 @@ jobs:
       - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
+    working_directory: ~/repo
     steps:
       - checkout
       - aws-cli/install
@@ -163,6 +165,7 @@ jobs:
       - image: circleci/node:14.16.1-browsers
     environment:
       TZ: "Asia/Tokyo"
+    working_directory: ~/repo
     steps:
       - checkout
       - aws-cli/install
